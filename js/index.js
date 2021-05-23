@@ -16,11 +16,12 @@ const loadPosts = (posts) => {
   })
 }
 
-const createPost = ({ title, body }) => {
+const createPost = ({ id, title, body }) => {
   const post = document.createElement('post-component')
 
   post.setAttribute('title', title)
   post.setAttribute('text', body)
+  post.setAttribute('postID', id)
 
   return post
 }
