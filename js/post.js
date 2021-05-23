@@ -23,6 +23,7 @@ class Post extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true))
 
     this.star = this.star.bind(this)
+    this.trash = this.trash.bind(this)
   }
   
   star() {
@@ -40,7 +41,17 @@ class Post extends HTMLElement {
   }
   
   trash() {
-    console.log('trash')
+    // Request to DELETE the post
+    // const id = this.getAttribute('postID')
+
+    // fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, { method: 'DELETE' })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     console.log(data)
+    //   })
+    //   .catch(error => console.error(error))
+
+    this.remove()
   }
   
   connectedCallback() {
@@ -59,8 +70,8 @@ class Post extends HTMLElement {
     const star = this.shadowRoot.querySelector('#star')
     const trash = this.shadowRoot.querySelector('#trash')
 
-    star.removeEventListener()
-    trash.removeEventListener()
+    star.removeEventListener('click', this.star)
+    trash.removeEventListener('click', this.trash)
   }
 }
 
