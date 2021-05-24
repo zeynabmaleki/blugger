@@ -34,6 +34,7 @@ class Post extends HTMLElement {
 
     if (storageValue === null || storageValue.length === 0) {
       favorites[0] = id
+      star.className = "bi bi-star-fill"
     } else if (storageValue.indexOf(id) != -1) {
       favorites = storageValue.filter(postID => postID != id)
       star.className = "bi bi-star"
@@ -78,7 +79,7 @@ class Post extends HTMLElement {
     const storageValue = JSON.parse(localStorage.getItem('favorites'))
     const id = this.getAttribute('postID')
 
-    if (storageValue.indexOf(id) != -1) {
+    if ( storageValue !== null && storageValue.indexOf(id) != -1) {
       star.className = "bi bi-star-fill"
     }
 
