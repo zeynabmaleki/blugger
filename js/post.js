@@ -30,11 +30,16 @@ class Post extends HTMLElement {
     let favorites = []
     const storageValue = JSON.parse(localStorage.getItem('favorites'))
     const id = this.getAttribute('postID')
+    const star = this.shadowRoot.querySelector('#star')
 
-    if (storageValue === null) {
+    if (storageValue === null || storageValue.length === 0) {
       favorites[0] = id
+    } else if (storageValue.indexOf(id) != -1) {
+      favorites = storageValue.filter(postID => postID != id)
+      star.className = "bi bi-star"
     } else {
       favorites = [...storageValue, id]
+      star.className = "bi bi-star-fill"
     }
 
     localStorage.setItem('favorites', JSON.stringify(favorites))
@@ -51,6 +56,14 @@ class Post extends HTMLElement {
     //   })
     //   .catch(error => console.error(error))
 
+    const storageValue = JSON.parse(localStorage.getItem('favorites'))
+    const id = this.getAttribute('postID')
+
+    if (storageValue.indexOf(id) != -1) {
+      const favorites = storageValue.filter(postID => postID != id)
+      localStorage.setItem('favorites', JSON.stringify(favorites))
+    }
+
     this.remove()
   }
   
@@ -61,6 +74,13 @@ class Post extends HTMLElement {
 
     const star = this.shadowRoot.querySelector('#star')
     const trash = this.shadowRoot.querySelector('#trash')
+
+    const storageValue = JSON.parse(localStorage.getItem('favorites'))
+    const id = this.getAttribute('postID')
+
+    if (storageValue.indexOf(id) != -1) {
+      star.className = "bi bi-star-fill"
+    }
 
     star.addEventListener('click', this.star)
     trash.addEventListener('click', this.trash)
