@@ -17,7 +17,10 @@ const loadAlbum = (album) => {
   })
 }
 
-const createPhoto = ({ url, title }) => {
+const createPhoto = ({
+  url,
+  title
+}) => {
   const photo = document.createElement('div')
 
   photo.classList.add('col')
