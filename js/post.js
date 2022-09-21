@@ -19,13 +19,15 @@ class Post extends HTMLElement {
   constructor() {
     super()
 
-    this.attachShadow({mode: 'open'})
+    this.attachShadow({
+      mode: 'open'
+    })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
 
     this.star = this.star.bind(this)
     this.trash = this.trash.bind(this)
   }
-  
+
   star() {
     let favorites = []
     const storageValue = JSON.parse(localStorage.getItem('favorites'))
@@ -45,7 +47,7 @@ class Post extends HTMLElement {
 
     localStorage.setItem('favorites', JSON.stringify(favorites))
   }
-  
+
   trash() {
     // Request to DELETE the post
     // const id = this.getAttribute('postID')
@@ -67,7 +69,7 @@ class Post extends HTMLElement {
 
     this.remove()
   }
-  
+
   connectedCallback() {
     this.className = "col col-md-4 mt-4"
     this.shadowRoot.querySelector('.card-title').innerHTML = this.getAttribute('title')
@@ -79,7 +81,7 @@ class Post extends HTMLElement {
     const storageValue = JSON.parse(localStorage.getItem('favorites'))
     const id = this.getAttribute('postID')
 
-    if ( storageValue !== null && storageValue.indexOf(id) != -1) {
+    if (storageValue !== null && storageValue.indexOf(id) != -1) {
       star.className = "bi bi-star-fill"
     }
 
